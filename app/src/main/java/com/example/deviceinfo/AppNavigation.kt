@@ -22,6 +22,7 @@ import androidx.navigation.compose.composable
 import com.example.deviceinfo.ui.battery.BatteryScreen
 import com.example.deviceinfo.ui.battery.BatteryViewModel
 import com.example.deviceinfo.ui.device.DeviceScreen
+import com.example.deviceinfo.ui.network.NetworkScreen
 
 
 internal sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
@@ -38,6 +39,9 @@ fun Navigation(navController: NavHostController, viewModel: BatteryViewModel) {
         }
         composable(Screen.Device.route) {
             DeviceScreen()
+        }
+        composable(Screen.Network.route) {
+            NetworkScreen()
         }
     }
 }

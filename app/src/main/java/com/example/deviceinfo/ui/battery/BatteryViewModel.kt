@@ -10,9 +10,9 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.deviceinfo.model.Data
-import com.example.deviceinfo.model.Health
-import com.example.deviceinfo.model.Source
-import com.example.deviceinfo.model.Status
+import com.example.deviceinfo.model.BatteryHealth
+import com.example.deviceinfo.model.BatterySource
+import com.example.deviceinfo.model.BatteryStatus
 
 class BatteryViewModel : ViewModel() {
 
@@ -33,30 +33,30 @@ class BatteryViewModel : ViewModel() {
         val temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) / 10
 
         val health = when (intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1)) {
-            BatteryManager.BATTERY_HEALTH_COLD -> Health.COLD
-            BatteryManager.BATTERY_HEALTH_GOOD -> Health.GOOD
-            BatteryManager.BATTERY_HEALTH_DEAD -> Health.DEAD
-            BatteryManager.BATTERY_HEALTH_OVERHEAT -> Health.OVERHEAT
-            BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE -> Health.OVER_VOLTAGE
-            BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE -> Health.UNSPECIFIED_FAILURE
-            else -> Health.UNKNOWN
+            BatteryManager.BATTERY_HEALTH_COLD -> BatteryHealth.COLD
+            BatteryManager.BATTERY_HEALTH_GOOD -> BatteryHealth.GOOD
+            BatteryManager.BATTERY_HEALTH_DEAD -> BatteryHealth.DEAD
+            BatteryManager.BATTERY_HEALTH_OVERHEAT -> BatteryHealth.OVERHEAT
+            BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE -> BatteryHealth.OVER_VOLTAGE
+            BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE -> BatteryHealth.UNSPECIFIED_FAILURE
+            else -> BatteryHealth.UNKNOWN
 
         }
         val source = when (intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)) {
-            BatteryManager.BATTERY_PLUGGED_AC -> Source.PLUGGED_AC
-            BatteryManager.BATTERY_PLUGGED_USB -> Source.PLUGGED_USB
-            BatteryManager.BATTERY_PLUGGED_WIRELESS -> Source.PLUGGED_WIRELESS
-            else -> Source.NO_POWER
+            BatteryManager.BATTERY_PLUGGED_AC -> BatterySource.PLUGGED_AC
+            BatteryManager.BATTERY_PLUGGED_USB -> BatterySource.PLUGGED_USB
+            BatteryManager.BATTERY_PLUGGED_WIRELESS -> BatterySource.PLUGGED_WIRELESS
+            else -> BatterySource.NO_POWER
         }
 
         val status = when (intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)) {
-            BatteryManager.BATTERY_STATUS_FULL -> Status.FULL
-            BatteryManager.BATTERY_STATUS_CHARGING -> Status.CHARGING
-            BatteryManager.BATTERY_STATUS_DISCHARGING -> Status.DIS_CHARGING
-            BatteryManager.BATTERY_STATUS_NOT_CHARGING -> Status.NOT_CHARGING
-            else -> Status.NO_STATUS
+            BatteryManager.BATTERY_STATUS_FULL -> BatteryStatus.FULL
+            BatteryManager.BATTERY_STATUS_CHARGING -> BatteryStatus.CHARGING
+            BatteryManager.BATTERY_STATUS_DISCHARGING -> BatteryStatus.DIS_CHARGING
+            BatteryManager.BATTERY_STATUS_NOT_CHARGING -> BatteryStatus.NOT_CHARGING
+            else -> BatteryStatus.NO_STATUS
         }
-        isCharging.value = status == Status.CHARGING
+        isCharging.value = status == BatteryStatus.CHARGING
         batteryLevel.value = level
         dataList.clear()
         dataList.addAll(
