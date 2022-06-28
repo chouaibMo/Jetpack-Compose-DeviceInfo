@@ -21,23 +21,33 @@ import com.example.deviceinfo.ui.theme.DeviceInfoTheme
 
 class MainActivity : ComponentActivity() {
 
+    private val batteryViewModel : BatteryViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        registerReceiver(batteryViewModel.batteryChangedReceiver, IntentFilter().apply {
+            addAction(Intent.ACTION_BATTERY_CHANGED)
+        })
         setContent {
             DeviceInfoTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainScreen()
+                    MainScreen(viewModel = batteryViewModel)
                 }
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(batteryViewModel.batteryChangedReceiver)
+    }
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(viewModel: BatteryViewModel) {
     val navController = rememberNavController()
     Scaffold(
         topBar = { TopBar() },
@@ -46,7 +56,7 @@ fun MainScreen() {
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
-            Navigation(navController)
+            Navigation(navController, viewModel)
         }
     }
 }
@@ -57,7 +67,7 @@ fun MainScreen() {
 fun DefaultPreview() {
     DeviceInfoTheme {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-            MainScreen()
+            MainScreen(BatteryViewModel())
         }
     }
 }

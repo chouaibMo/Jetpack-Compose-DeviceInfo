@@ -30,8 +30,12 @@ internal sealed class Screen(val route: String, val title: String, val icon: Ima
 }
 
 @Composable
-fun Navigation(navController: NavHostController) {
-    NavHost(navController, startDestination = Screen.Battery.route) {}
+fun Navigation(navController: NavHostController, viewModel: BatteryViewModel) {
+    NavHost(navController, startDestination = Screen.Battery.route) {
+        composable(Screen.Battery.route) {
+            BatteryScreen(viewModel = viewModel)
+        }
+    }
 }
 
 @Composable
