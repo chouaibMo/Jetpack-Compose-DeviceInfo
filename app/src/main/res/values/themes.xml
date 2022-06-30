@@ -19,6 +19,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.Splash" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.AppCompat</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+    </style>
+
     <style name="Theme.DeviceInfo.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.DeviceInfo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

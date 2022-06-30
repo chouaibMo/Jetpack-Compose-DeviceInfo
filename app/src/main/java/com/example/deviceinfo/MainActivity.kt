@@ -15,6 +15,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.example.deviceinfo.ui.battery.BatteryViewModel
 import com.example.deviceinfo.ui.theme.DeviceInfoTheme
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         registerReceiver(batteryViewModel.batteryChangedReceiver, IntentFilter().apply {
             addAction(Intent.ACTION_BATTERY_CHANGED)
         })
